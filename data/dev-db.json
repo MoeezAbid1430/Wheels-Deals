@@ -1,0 +1,405 @@
+{
+  "users": [
+    {
+      "id": "user-8176af27-164f-41de-ae2a-698275ba3742",
+      "email": "smoke1778368488923@test.com",
+      "phone": null,
+      "passwordHash": "c51ccb36248bd78022de2f901551e115:743c2674b14f9fbb50d566f8ddb7c5bb3bad82cab53fd5813e7642c1801e4908c1b8ab522dee08a0801b078852e457e5575109b285d51008535c21debf446d3e",
+      "roles": [
+        "buyer"
+      ],
+      "status": "active",
+      "createdAt": "2026-05-09T23:14:49.048Z"
+    },
+    {
+      "id": "user-9e4ea140-4f14-4997-a212-3584dae697d4",
+      "email": "smoke1778373172@example.com",
+      "fullName": "Smoke User",
+      "phone": "+923000000000",
+      "passwordHash": "a0c2f134f746316f411fd29f7fcfd410:7f2b6ac3e2fdf4950910d0b7086cf5c5f47c352eba5821421017cab6395eaefbf583d575f60960abf56339dadea86f409fe8f7ac11e99e518e093206621e242d",
+      "roles": [
+        "buyer"
+      ],
+      "status": "active",
+      "emailVerified": false,
+      "phoneVerified": false,
+      "createdAt": "2026-05-10T00:32:56.557Z"
+    },
+    {
+      "id": "user-1cd7bad3-fbb9-484e-a353-763201cfa31e",
+      "email": "json-smoke1778377635@example.com",
+      "fullName": "JSON Smoke",
+      "phone": null,
+      "passwordHash": "cf49fb5252f51c8e5368bbce60598b7f:44ea9918a764ce81004cfa057c12f2d0dbd41dbd20b67834cf4a7a5e478669b3944a1a19dbeca97182068f23e635cd2f2912a4a1be50e484b87975ab4d38483b",
+      "roles": [
+        "buyer"
+      ],
+      "status": "active",
+      "emailVerified": false,
+      "phoneVerified": false,
+      "createdAt": "2026-05-10T01:47:15.704Z"
+    },
+    {
+      "id": "user-ce37a807-e5b9-4ccb-88fb-f1434852f87d",
+      "email": "wallet-smoke1778377965@example.com",
+      "fullName": "Wallet Smoke",
+      "phone": null,
+      "passwordHash": "3fd447dcf73f88c161e00301cdb45787:9d3bbe1630ceec4b0660eac27338acbf50ad51ef8fb1e23c02266ee26afd5f2abcf9de76926292ef552fab4e7382bda5d6acc9cdb52276fac932974ace7ff870",
+      "roles": [
+        "buyer"
+      ],
+      "status": "active",
+      "emailVerified": false,
+      "phoneVerified": false,
+      "createdAt": "2026-05-10T01:52:46.145Z"
+    },
+    {
+      "id": "user-48ea6423-793c-455c-ac53-2a29890ed3b2",
+      "email": "wallet-smoke1778377986@example.com",
+      "fullName": "Wallet Smoke",
+      "phone": null,
+      "passwordHash": "956212bc06660c7981b8f9ce03535ecf:d9817c9e8572cbcd02f9fc7613c9832b97b8c169f1410ebea6023d46e6427f38cf7a812c4aafbb926d8527a1cb9661cf8aa022b2e64113451b3f03816190ba83",
+      "roles": [
+        "buyer"
+      ],
+      "status": "active",
+      "emailVerified": false,
+      "phoneVerified": false,
+      "createdAt": "2026-05-10T01:53:06.394Z"
+    }
+  ],
+  "sessions": [],
+  "kycProfiles": [
+    {
+      "id": "kyc-68cc244b-530f-40a8-9d5b-9e05f8e6f330",
+      "userId": "user-8176af27-164f-41de-ae2a-698275ba3742",
+      "status": "not_started",
+      "documents": []
+    },
+    {
+      "id": "kyc-fe5b0c2c-be88-45ec-8fa8-45ad2f12c3fd",
+      "userId": "user-9e4ea140-4f14-4997-a212-3584dae697d4",
+      "status": "not_started",
+      "documents": []
+    },
+    {
+      "id": "kyc-0a4a2f85-f408-4c64-8f5b-d9d2d78a1f28",
+      "userId": "user-1cd7bad3-fbb9-484e-a353-763201cfa31e",
+      "status": "not_started",
+      "documents": []
+    },
+    {
+      "id": "kyc-6edda5fe-615a-4c43-9492-4f1586a68420",
+      "userId": "user-ce37a807-e5b9-4ccb-88fb-f1434852f87d",
+      "status": "not_started",
+      "documents": []
+    },
+    {
+      "id": "kyc-db0fa55c-8efe-4e8e-b454-934c40f7eb62",
+      "userId": "user-48ea6423-793c-455c-ac53-2a29890ed3b2",
+      "status": "not_started",
+      "documents": []
+    }
+  ],
+  "walletAccounts": [
+    {
+      "id": "wallet-f8f8862d-9a80-4ebc-a98c-8319e087fd92",
+      "userId": "user-8176af27-164f-41de-ae2a-698275ba3742",
+      "currency": "PKR",
+      "createdAt": "2026-05-09T23:14:49.049Z"
+    },
+    {
+      "id": "wallet-0052937a-f2a5-45ea-ab29-839d869322a6",
+      "userId": "user-9e4ea140-4f14-4997-a212-3584dae697d4",
+      "currency": "PKR",
+      "createdAt": "2026-05-10T00:32:56.558Z"
+    },
+    {
+      "id": "wallet-996d64aa-9df3-4d11-8412-4af6c77aae5b",
+      "userId": "user-1cd7bad3-fbb9-484e-a353-763201cfa31e",
+      "currency": "PKR",
+      "createdAt": "2026-05-10T01:47:15.704Z"
+    },
+    {
+      "id": "wallet-d32bb76e-5050-4b3e-ad43-8e5cb30e587f",
+      "userId": "user-ce37a807-e5b9-4ccb-88fb-f1434852f87d",
+      "currency": "PKR",
+      "createdAt": "2026-05-10T01:52:46.146Z"
+    },
+    {
+      "id": "wallet-601f4821-ab93-439f-affa-17f9605bbf51",
+      "userId": "user-48ea6423-793c-455c-ac53-2a29890ed3b2",
+      "currency": "PKR",
+      "createdAt": "2026-05-10T01:53:06.394Z"
+    }
+  ],
+  "walletLedger": [
+    {
+      "id": "ledger-a8d7e42c-6130-4566-8507-a8941074ac3f",
+      "walletAccountId": "wallet-f8f8862d-9a80-4ebc-a98c-8319e087fd92",
+      "entryType": "deposit",
+      "amount": 600000,
+      "referenceType": "payment_intent",
+      "referenceId": "pay-623347c9-95b8-4d02-b17b-3a4407f1e433",
+      "note": "Wallet top-up",
+      "createdAt": "2026-05-09T23:14:49.085Z"
+    },
+    {
+      "id": "ledger-f4b4e7f6-a592-4058-a101-3ee21e447391",
+      "walletAccountId": "wallet-0052937a-f2a5-45ea-ab29-839d869322a6",
+      "entryType": "deposit",
+      "amount": 250000,
+      "referenceType": "payment_intent",
+      "referenceId": "pay-e3899d21-c570-4783-b848-d8388860672d",
+      "note": "Wallet top-up",
+      "createdAt": "2026-05-10T00:32:56.649Z"
+    },
+    {
+      "id": "ledger-4cf568c8-5501-4870-b83b-9706fd2428b3",
+      "walletAccountId": "wallet-d32bb76e-5050-4b3e-ad43-8e5cb30e587f",
+      "entryType": "deposit",
+      "amount": 600000,
+      "referenceType": "payment_intent",
+      "referenceId": "pay-b49ef9b8-2cfd-416a-9f97-cf704ff6c145",
+      "note": "Wallet top-up",
+      "createdAt": "2026-05-10T01:52:46.179Z"
+    },
+    {
+      "id": "ledger-c19349b0-9ece-402d-845e-5fbea3f89a4f",
+      "walletAccountId": "wallet-601f4821-ab93-439f-affa-17f9605bbf51",
+      "entryType": "deposit",
+      "amount": 900000,
+      "referenceType": "payment_intent",
+      "referenceId": "pay-3ebed7e0-8848-4b9b-813c-9d8186b46b15",
+      "note": "Wallet top-up",
+      "createdAt": "2026-05-10T01:53:06.439Z"
+    }
+  ],
+  "depositHolds": [
+    {
+      "id": "hold-e0b51674-fd19-4951-af42-9b2e5b66db99",
+      "walletAccountId": "wallet-f8f8862d-9a80-4ebc-a98c-8319e087fd92",
+      "auctionId": "1",
+      "amount": 430000,
+      "status": "locked",
+      "createdAt": "2026-05-09T23:14:49.102Z"
+    },
+    {
+      "id": "hold-6a5b99c9-9dc2-4637-8a78-995cf2a9fbf0",
+      "walletAccountId": "wallet-601f4821-ab93-439f-affa-17f9605bbf51",
+      "auctionId": "1",
+      "amount": 432500,
+      "status": "locked",
+      "createdAt": "2026-05-10T01:53:06.514Z"
+    }
+  ],
+  "paymentIntents": [
+    {
+      "id": "pay-623347c9-95b8-4d02-b17b-3a4407f1e433",
+      "walletAccountId": "wallet-f8f8862d-9a80-4ebc-a98c-8319e087fd92",
+      "provider": "mock",
+      "amount": 600000,
+      "status": "succeeded",
+      "createdAt": "2026-05-09T23:14:49.085Z"
+    },
+    {
+      "id": "pay-e3899d21-c570-4783-b848-d8388860672d",
+      "walletAccountId": "wallet-0052937a-f2a5-45ea-ab29-839d869322a6",
+      "provider": "mock",
+      "amount": 250000,
+      "status": "succeeded",
+      "createdAt": "2026-05-10T00:32:56.648Z"
+    },
+    {
+      "id": "pay-b49ef9b8-2cfd-416a-9f97-cf704ff6c145",
+      "walletAccountId": "wallet-d32bb76e-5050-4b3e-ad43-8e5cb30e587f",
+      "provider": "mock",
+      "amount": 600000,
+      "status": "succeeded",
+      "createdAt": "2026-05-10T01:52:46.179Z"
+    },
+    {
+      "id": "pay-3ebed7e0-8848-4b9b-813c-9d8186b46b15",
+      "walletAccountId": "wallet-601f4821-ab93-439f-affa-17f9605bbf51",
+      "provider": "mock",
+      "amount": 900000,
+      "status": "succeeded",
+      "createdAt": "2026-05-10T01:53:06.439Z"
+    }
+  ],
+  "mediaAssets": [],
+  "auditLogs": [
+    {
+      "id": "audit-1ccd43a9-4d52-4d2c-a463-964ead690517",
+      "actorId": "user-8176af27-164f-41de-ae2a-698275ba3742",
+      "action": "auth.register",
+      "entityType": "user",
+      "entityId": "user-8176af27-164f-41de-ae2a-698275ba3742",
+      "createdAt": "2026-05-09T23:14:49.049Z"
+    },
+    {
+      "id": "audit-9845ea37-71f8-440d-b993-ca869b6c1522",
+      "actorId": "user-9e4ea140-4f14-4997-a212-3584dae697d4",
+      "action": "auth.register",
+      "entityType": "user",
+      "entityId": "user-9e4ea140-4f14-4997-a212-3584dae697d4",
+      "createdAt": "2026-05-10T00:32:56.558Z"
+    },
+    {
+      "id": "audit-9fb16f5b-3eb3-4df4-9cce-a6c8fdd3645f",
+      "actorId": "user-1cd7bad3-fbb9-484e-a353-763201cfa31e",
+      "action": "auth.register",
+      "entityType": "user",
+      "entityId": "user-1cd7bad3-fbb9-484e-a353-763201cfa31e",
+      "createdAt": "2026-05-10T01:47:15.704Z"
+    },
+    {
+      "id": "audit-b1af96aa-aebe-4c96-83e7-849cbf61ed74",
+      "actorId": "user-ce37a807-e5b9-4ccb-88fb-f1434852f87d",
+      "action": "auth.register",
+      "entityType": "user",
+      "entityId": "user-ce37a807-e5b9-4ccb-88fb-f1434852f87d",
+      "createdAt": "2026-05-10T01:52:46.146Z"
+    },
+    {
+      "id": "audit-ea2e71a8-ae07-463c-b67a-9ce47446c44b",
+      "actorId": "user-48ea6423-793c-455c-ac53-2a29890ed3b2",
+      "action": "auth.register",
+      "entityType": "user",
+      "entityId": "user-48ea6423-793c-455c-ac53-2a29890ed3b2",
+      "createdAt": "2026-05-10T01:53:06.394Z"
+    }
+  ],
+  "listings": [
+    {
+      "id": "1",
+      "listingType": "auction",
+      "status": "live",
+      "year": 2019,
+      "make": "Toyota",
+      "model": "Fortuner",
+      "variant": "V Petrol",
+      "bodyStyle": "SUV",
+      "powertrain": "Petrol",
+      "transmission": "Automatic",
+      "mileageKm": 45000,
+      "city": "Karachi",
+      "titleStatus": "Clean",
+      "askingPrice": null,
+      "marketEstimate": 9100000,
+      "inspectionScore": 91,
+      "trustScore": 96,
+      "sellerId": "seed-seller"
+    },
+    {
+      "id": "2",
+      "listingType": "auction",
+      "status": "live",
+      "year": 2021,
+      "make": "Honda",
+      "model": "Civic",
+      "variant": "RS Turbo",
+      "bodyStyle": "Sedan",
+      "powertrain": "Petrol",
+      "transmission": "CVT",
+      "mileageKm": 12000,
+      "city": "Lahore",
+      "titleStatus": "Clean",
+      "askingPrice": null,
+      "marketEstimate": 6600000,
+      "inspectionScore": 88,
+      "trustScore": 88,
+      "sellerId": "seed-seller"
+    }
+  ],
+  "auctions": [
+    {
+      "id": "1",
+      "listingId": "1",
+      "status": "live",
+      "reservePrice": 8190000,
+      "highBid": 8650000,
+      "bidIncrement": 50000,
+      "lastBidderId": "user-48ea6423-793c-455c-ac53-2a29890ed3b2",
+      "bidsCount": 2,
+      "endsAt": "2026-05-10T01:14:46.874Z",
+      "extensionsCount": 0,
+      "winnerId": null
+    },
+    {
+      "id": "2",
+      "listingId": "2",
+      "status": "live",
+      "reservePrice": 5940000,
+      "highBid": 6250000,
+      "bidIncrement": 50000,
+      "lastBidderId": null,
+      "bidsCount": 0,
+      "endsAt": "2026-05-10T03:14:46.875Z",
+      "extensionsCount": 0,
+      "winnerId": null
+    }
+  ],
+  "bids": [
+    {
+      "id": "bid-a954fb50-d0c3-4f0f-b547-1eda305512ba",
+      "auctionId": "1",
+      "bidderId": "user-8176af27-164f-41de-ae2a-698275ba3742",
+      "amount": 8600000,
+      "status": "accepted",
+      "createdAt": "2026-05-09T23:14:49.102Z"
+    },
+    {
+      "id": "bid-74de772f-11d6-46fc-aebe-4745327ca61a",
+      "auctionId": "1",
+      "bidderId": "user-48ea6423-793c-455c-ac53-2a29890ed3b2",
+      "amount": 8650000,
+      "status": "accepted",
+      "createdAt": "2026-05-10T01:53:06.514Z"
+    }
+  ],
+  "accessories": [
+    {
+      "id": "accessory-floor-mats",
+      "name": "Fortuner All-Weather Floor Mat Set",
+      "category": "Seat Covers & Mats",
+      "condition": "new",
+      "price": 28500,
+      "city": "Karachi",
+      "sellerId": "seed-seller",
+      "fitmentType": "vehicle_specific",
+      "stock": 12,
+      "warranty": "6 months"
+    },
+    {
+      "id": "accessory-dashcam",
+      "name": "Universal 70mai Dashcam Kit",
+      "category": "Dashcams & Cameras",
+      "condition": "new",
+      "price": 42000,
+      "city": "Lahore",
+      "sellerId": "seed-seller",
+      "fitmentType": "universal",
+      "stock": 22,
+      "warranty": "1 year"
+    }
+  ],
+  "accessoryFitments": [
+    {
+      "id": "fitment-fortuner-mats",
+      "accessoryId": "accessory-floor-mats",
+      "yearFrom": 2016,
+      "yearTo": 2024,
+      "make": "Toyota",
+      "model": "Fortuner",
+      "bodyStyle": "SUV"
+    }
+  ],
+  "sellerDrafts": [],
+  "disputes": [],
+  "reports": [],
+  "checkouts": [],
+  "notifications": [],
+  "savedSearches": [],
+  "recommendationFeedback": []
+}

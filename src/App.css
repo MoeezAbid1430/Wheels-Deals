@@ -1,38 +1,190 @@
+/* App.css */
+/* We are using Tailwind CSS for styling, so we keep this minimal */
+
 .App {
-  text-align: center;
+  /* Ensure the app takes full width but doesn't force centering */
+  min-height: 100vh;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 9999;
+  transform: translateY(-150%);
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-weight: 800;
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 3px solid #34d399;
+  outline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
+.wd-logo-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background: #fff;
+  animation: wd-intro-shell 1900ms ease forwards;
+}
+
+.wd-logo-intro--preview {
+  animation: none;
+}
+
+.wd-logo-loader {
+  width: min(82vw, 580px);
+  aspect-ratio: 1.95 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.wd-layer-logo-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+.wd-layer-logo-stage img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  will-change: transform, opacity, filter;
+  user-select: none;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.wd-layer-logo-stage [data-logo-part] {
+  will-change: transform, opacity, filter;
+}
+
+.wd-layer-logo-wheel {
+  top: 10%;
+  width: 27%;
+  height: auto;
+  border-radius: 999px;
+}
+
+.wd-layer-logo-left {
+  left: 17%;
+}
+
+.wd-layer-logo-right {
+  right: 17%;
+}
+
+.wd-layer-logo-center {
+  left: 50%;
+  top: 10%;
+  z-index: 3;
+}
+
+.wd-layer-logo-hands {
+  left: 50%;
+  top: 41%;
+  width: 37%;
+  height: auto;
+  z-index: 2;
+}
+
+.wd-layer-logo-open-hands {
+  position: absolute;
+  aspect-ratio: 385 / 350;
+  transform: translate(-50%, -50%);
+}
+
+.wd-layer-logo-split-hand {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.wd-layer-logo-split-left {
+  clip-path: inset(0 50% 0 0);
+}
+
+.wd-layer-logo-split-right {
+  clip-path: inset(0 0 0 50%);
+}
+
+.wd-layer-logo-connected-hands {
+  transform: translate(-50%, -50%);
+}
+
+.wd-layer-logo-wordmark {
+  left: 4%;
+  right: 4%;
+  bottom: 2%;
+  width: 92%;
+  height: auto;
+  z-index: 1;
+}
+
+@keyframes wd-intro-shell {
+  0%, 88% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@media (prefers-reduced-motion: reduce) {
+  .wd-logo-intro {
+    animation: wd-intro-shell 900ms ease forwards;
+  }
+
+  .wd-layer-logo-stage img {
+    transform: none !important;
+  }
+
+  .wd-layer-logo-split-hand,
+  .wd-layer-logo-wheel {
+    opacity: 0 !important;
+  }
+
+  .wd-layer-logo-hands {
+    transform: translate(-50%, -50%) !important;
+  }
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Optional: Smooth scroll behavior for the whole app */
+html {
+  scroll-behavior: smooth;
 }

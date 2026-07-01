@@ -1,0 +1,26 @@
+<svg width="300" height="86" viewBox="0 0 300 86" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Wheels and Deals</title>
+  <desc id="desc">Wheel and handshake mark with Wheels and Deals stacked wordmark.</desc>
+  <g fill="#030303">
+    <circle cx="31" cy="28" r="23"/>
+    <circle cx="88" cy="28" r="23"/>
+    <path d="M50 30h13l10 6 14-12 13 3-18 16 9 9c4 4 4 10 0 13-4 4-10 4-14 0L66 54l-7 5-7 12c-3 4-8 5-12 2-4-3-5-8-2-12l7-11-11-5 16-15Z"/>
+    <path d="M69 30H56L46 36 32 24l-13 3 18 16-9 9c-4 4-4 10 0 13 4 4 10 4 14 0l11-11 7 5 7 12c3 4 8 5 12 2 4-3 5-8 2-12l-7-11 11-5-16-15Z"/>
+  </g>
+  <g stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="31" cy="28" r="15"/>
+    <circle cx="31" cy="28" r="5.7"/>
+    <path d="M31 13v9M31 34v9M16 28h9M37 28h9M20 17l7 7M42 17l-7 7M27 32l-7 7M35 32l7 7"/>
+    <circle cx="88" cy="28" r="15"/>
+    <circle cx="88" cy="28" r="5.7"/>
+    <path d="M88 13v9M88 34v9M73 28h9M94 28h9M77 17l7 7M99 17l-7 7M84 32l-7 7M92 32l7 7"/>
+    <path d="M55 31 47 39c-3 3-8 1-9-2-.4-2 .4-4 2-5l13-12M64 31l8 8c3 3 8 1 9-2 .4-2-.4-4-2-5L66 20"/>
+    <path d="M50 51 56 57M58 48 65 55M66 45 74 52"/>
+  </g>
+  <g fill="#030303">
+    <text x="116" y="32" font-family="Arial Black, Impact, Arial, sans-serif" font-size="24" font-style="italic" letter-spacing=".2">WHEELS</text>
+    <text x="116" y="58" font-family="Arial Black, Impact, Arial, sans-serif" font-size="24" font-style="italic" letter-spacing=".2">AND DEALS</text>
+    <rect x="116" y="64" width="100" height="3" rx="1.5"/>
+    <path d="M225 62h8l-6 9h-8l6-9Zm13 0h8l-6 9h-8l6-9Zm13 0h8l-6 9h-8l6-9Z"/>
+  </g>
+</svg>

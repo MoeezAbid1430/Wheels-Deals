@@ -1,0 +1,76 @@
+export const integrationCapabilities = {
+  payments: {
+    required: [
+      'card_top_up',
+      'bank_transfer_proof',
+      'mobile_wallet_top_up',
+      'deposit_hold',
+      'deposit_release',
+      'deposit_forfeit',
+      'refund',
+      'seller_payout',
+      'escrow_settlement',
+      'invoice_generation',
+    ],
+    providers: ['stripe', 'adyen', 'local_gateway', 'easypaisa', 'jazzcash', 'bank_transfer'],
+  },
+  kyc: {
+    required: [
+      'cnic_verification',
+      'phone_otp',
+      'email_verification',
+      'seller_document_match',
+      'dealer_business_verification',
+      'liveness_check',
+    ],
+    providers: ['local_kyc_provider', 'manual_admin_review'],
+  },
+  social: {
+    required: [
+      'google_login',
+      'facebook_login',
+      'apple_login',
+      'whatsapp_share',
+      'facebook_share',
+      'x_share',
+      'referral_tracking',
+      'dealer_social_links',
+    ],
+    providers: ['google', 'facebook', 'apple', 'whatsapp', 'x'],
+  },
+  notifications: {
+    required: [
+      'sms_otp',
+      'whatsapp_alerts',
+      'email_receipts',
+      'push_notifications',
+      'auction_alerts',
+      'checkout_alerts',
+    ],
+    providers: ['twilio', 'sendgrid', 'firebase_cloud_messaging', 'local_sms_gateway'],
+  },
+  maps: {
+    required: ['places_autocomplete', 'nearby_listings', 'inspection_location', 'distance_calculation'],
+    providers: ['google_maps', 'mapbox'],
+  },
+  vehicleData: {
+    required: ['make_model_catalog', 'variant_catalog', 'vin_or_chassis_decode', 'market_price_bands', 'registration_hints'],
+    providers: ['internal_catalog', 'third_party_vehicle_data'],
+  },
+  ai: {
+    required: [
+      'personalized_recommendations',
+      'price_estimate',
+      'deal_score_explanation',
+      'listing_quality_score',
+      'fraud_detection',
+      'duplicate_listing_detection',
+      'natural_language_search',
+      'community_summary',
+      'seller_description_generator',
+      'photo_quality_analysis',
+      'bidder_risk_score',
+    ],
+    providers: ['openai', 'custom_ml_service', 'search_ranker'],
+  },
+};

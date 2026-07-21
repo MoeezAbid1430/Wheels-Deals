@@ -225,6 +225,8 @@ export const apiRoutes = {
   ai: {
     features: '/ai/features',
     personalizedRecommendations: '/ai/recommendations/personalized',
+    pricePrediction: '/ai/price-prediction',
+    priceModelStatus: '/ai/price-model/status',
     priceEstimate: (listingId) => `/ai/listings/${listingId}/price-estimate`,
     dealScore: (listingId) => `/ai/listings/${listingId}/deal-score`,
     similarListings: (listingId) => `/ai/listings/${listingId}/similar`,

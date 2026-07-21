@@ -74,6 +74,8 @@ import {
   inspectionInsight,
   moderateText,
   parseNaturalSearch,
+  pakistanValuationModel,
+  predictVehiclePrice,
   rankListingsAi,
   sellerPricingCoach,
   similarListings,
@@ -3021,7 +3023,30 @@ const route = async (request, response) => {
     if (request.method === 'POST' && priceEstimateMatch) {
       const listing = store.listings.find((item) => String(item.id) === priceEstimateMatch[1]);
       if (!listing) return json(response, 404, { message: 'Listing not found.' });
-      return json(response, 200, { estimate: estimatePrice({ ...listing, ...(await readBody(request)) }) });
+      return json(response, 200, { estimate: predictVehiclePrice({ ...listing, ...(await readBody(request)) }, store) });
+    }
+
+    if (request.method === 'GET' && path === '/ai/price-model/status') {
+      return json(response, 200, {
+        model: pakistanValuationModel.name,
+        market: pakistanValuationModel.market,
+        currency: pakistanValuationModel.currency,
+        trainedStatus: pakistanValuationModel.trainedStatus,
+        appListingRows: store.listings.filter((item) => estimatePrice(item).mid || item.askingPrice || item.marketEstimate).length,
+        anchorRows: pakistanValuationModel.anchorRows.length,
+        featureWeights: pakistanValuationModel.featureWeights,
+      });
+    }
+
+    if (request.method === 'POST' && path === '/ai/price-prediction') {
+      const body = await readBody(request);
+      const listing = body.listingId
+        ? store.listings.find((item) => String(item.id) === String(body.listingId))
+        : null;
+      if (body.listingId && !listing) return json(response, 404, { message: 'Listing not found.' });
+      return json(response, 200, {
+        estimate: predictVehiclePrice({ ...(listing || {}), ...body }, store),
+      });
     }
 
     const dealScoreMatch = path.match(/^\/ai\/listings\/([^/]+)\/deal-score$/);

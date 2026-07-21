@@ -261,6 +261,8 @@ export const createPlatformApi = (client = httpClient) => ({
   ai: {
     features: () => client.get(apiRoutes.ai.features),
     personalizedRecommendations: (query) => client.get(apiRoutes.ai.personalizedRecommendations, { query }),
+    pricePrediction: (payload) => client.post(apiRoutes.ai.pricePrediction, payload),
+    priceModelStatus: () => client.get(apiRoutes.ai.priceModelStatus),
     priceEstimate: (listingId, payload) => client.post(apiRoutes.ai.priceEstimate(listingId), payload),
     dealScore: (listingId) => client.get(apiRoutes.ai.dealScore(listingId)),
     similarListings: (listingId) => client.get(apiRoutes.ai.similarListings(listingId)),

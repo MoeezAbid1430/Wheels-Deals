@@ -6,6 +6,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import LogoLoader from './components/LogoLoader';
 import ProtectedRoute from './components/ProtectedRoute';
+import ChatbotWidget from './components/ChatbotWidget';
 import Home from './pages/Home';
 import Login from './components/Login'; 
 import SellCarListing from './components/SellCarListing'; 
@@ -325,6 +326,7 @@ function App() {
           <Route path="/listing/:id" element={<CarDetails />} />
         </Routes>
       </div>
+      <ChatbotWidget />
     </div>
   );
 }

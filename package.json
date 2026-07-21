@@ -24,6 +24,9 @@
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down",
     "db:migrate": "node server/src/migrate.js",
+    "chatbot:dev": "npm --prefix chatbot run dev",
+    "chatbot:build": "npm --prefix chatbot run build",
+    "chatbot:check": "npm --prefix chatbot run check",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

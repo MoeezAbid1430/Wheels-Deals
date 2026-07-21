@@ -19,6 +19,207 @@ export const listingPrice = (listing = {}) => Number(
 
 export const auctionForListing = (store, listing = {}) => store.auctions.find((auction) => String(auction.listingId) === String(listing.id));
 
+const normalizeText = (value) => String(value || '').trim().toLowerCase();
+
+const sameText = (a, b) => normalizeText(a) && normalizeText(a) === normalizeText(b);
+
+const numericValue = (...values) => {
+  const found = values.find((value) => Number(value) > 0);
+  return found === undefined ? 0 : Number(found);
+};
+
+export const pakistanValuationModel = Object.freeze({
+  name: 'pakistan_comparable_hedonic_v1',
+  market: 'PK',
+  currency: 'PKR',
+  trainedStatus: 'baseline_ready_waiting_for_historical_sales',
+  intendedDataSources: [
+    'Pakistan used-car listing exports',
+    'PakWheels-style historical listing data',
+    'OLX-style marketplace listing data',
+    'Wheels&Deals completed marketplace and auction sale prices',
+  ],
+  featureWeights: {
+    exactMake: 0.18,
+    exactModel: 0.24,
+    exactVariant: 0.10,
+    yearDistance: 0.12,
+    mileageDistance: 0.10,
+    engineCcDistance: 0.07,
+    cityMatch: 0.06,
+    bodyStyleMatch: 0.05,
+    transmissionMatch: 0.04,
+    fuelMatch: 0.04,
+  },
+  adjustmentWeights: {
+    annualDepreciation: 0.065,
+    mileagePerTwentyThousandKm: 0.035,
+    engineCcPerFiveHundredCc: 0.018,
+    inspectionPerPoint: 0.0022,
+    trustPerPoint: 0.001,
+  },
+  cityPremiums: {
+    karachi: 0.015,
+    lahore: 0.02,
+    islamabad: 0.025,
+    rawalpindi: 0.008,
+    faisalabad: -0.006,
+    multan: -0.01,
+    peshawar: -0.012,
+    quetta: -0.018,
+  },
+  anchorRows: [
+    { id: 'pk-anchor-civic-2021', make: 'Honda', model: 'Civic', bodyStyle: 'Sedan', year: 2021, mileageKm: 45000, engineCapacityCc: 1800, transmission: 'Automatic', powertrain: 'Petrol', city: 'Lahore', marketEstimate: 6100000 },
+    { id: 'pk-anchor-city-2021', make: 'Honda', model: 'City', bodyStyle: 'Sedan', year: 2021, mileageKm: 50000, engineCapacityCc: 1500, transmission: 'Automatic', powertrain: 'Petrol', city: 'Lahore', marketEstimate: 4900000 },
+    { id: 'pk-anchor-corolla-2021', make: 'Toyota', model: 'Corolla', bodyStyle: 'Sedan', year: 2021, mileageKm: 52000, engineCapacityCc: 1800, transmission: 'Automatic', powertrain: 'Petrol', city: 'Karachi', marketEstimate: 5700000 },
+    { id: 'pk-anchor-yaris-2021', make: 'Toyota', model: 'Yaris', bodyStyle: 'Sedan', year: 2021, mileageKm: 45000, engineCapacityCc: 1500, transmission: 'Automatic', powertrain: 'Petrol', city: 'Islamabad', marketEstimate: 4600000 },
+    { id: 'pk-anchor-alto-2022', make: 'Suzuki', model: 'Alto', bodyStyle: 'Hatchback', year: 2022, mileageKm: 30000, engineCapacityCc: 660, transmission: 'Automatic', powertrain: 'Petrol', city: 'Karachi', marketEstimate: 3150000 },
+    { id: 'pk-anchor-cultus-2021', make: 'Suzuki', model: 'Cultus', bodyStyle: 'Hatchback', year: 2021, mileageKm: 45000, engineCapacityCc: 1000, transmission: 'Manual', powertrain: 'Petrol', city: 'Lahore', marketEstimate: 3850000 },
+    { id: 'pk-anchor-fortuner-2021', make: 'Toyota', model: 'Fortuner', bodyStyle: 'SUV', year: 2021, mileageKm: 50000, engineCapacityCc: 2700, transmission: 'Automatic', powertrain: 'Petrol', city: 'Islamabad', marketEstimate: 15100000 },
+    { id: 'pk-anchor-sportage-2021', make: 'Kia', model: 'Sportage', bodyStyle: 'SUV', year: 2021, mileageKm: 48000, engineCapacityCc: 2000, transmission: 'Automatic', powertrain: 'Petrol', city: 'Lahore', marketEstimate: 7800000 },
+    { id: 'pk-anchor-wagonr-2020', make: 'Suzuki', model: 'Wagon R', bodyStyle: 'Hatchback', year: 2020, mileageKm: 65000, engineCapacityCc: 1000, transmission: 'Manual', powertrain: 'Petrol', city: 'Karachi', marketEstimate: 3150000 },
+    { id: 'pk-anchor-mehran-2018', make: 'Suzuki', model: 'Mehran', bodyStyle: 'Hatchback', year: 2018, mileageKm: 85000, engineCapacityCc: 800, transmission: 'Manual', powertrain: 'Petrol', city: 'Faisalabad', marketEstimate: 1350000 },
+  ],
+});
+
+const vehicleYear = (listing = {}) => numericValue(listing.year, listing.modelYear, listing.model_year);
+const vehicleMileage = (listing = {}) => numericValue(listing.mileageKm, listing.mileage, listing.kmDriven);
+const vehicleEngineCc = (listing = {}) => numericValue(listing.engineCapacityCc, listing.engineCc, listing.cc, listing.displacement);
+const vehicleFuel = (listing = {}) => listing.powertrain || listing.fuel || listing.fuelType || listing.engineType;
+
+const marketCityPremium = (city) => pakistanValuationModel.cityPremiums[normalizeText(city)] || 0;
+
+const closeness = (left, right, range) => {
+  if (!left || !right) return 0;
+  return clamp(1 - (Math.abs(Number(left) - Number(right)) / range), 0, 1);
+};
+
+const valuationSimilarity = (target = {}, candidate = {}) => {
+  const weights = pakistanValuationModel.featureWeights;
+  const score =
+    (sameText(target.make, candidate.make) ? weights.exactMake : 0) +
+    (sameText(target.model, candidate.model) ? weights.exactModel : 0) +
+    (sameText(target.variant, candidate.variant) ? weights.exactVariant : 0) +
+    closeness(vehicleYear(target), vehicleYear(candidate), 8) * weights.yearDistance +
+    closeness(vehicleMileage(target), vehicleMileage(candidate), 140000) * weights.mileageDistance +
+    closeness(vehicleEngineCc(target), vehicleEngineCc(candidate), 1800) * weights.engineCcDistance +
+    (sameText(target.city, candidate.city) ? weights.cityMatch : 0) +
+    (sameText(target.bodyStyle, candidate.bodyStyle) ? weights.bodyStyleMatch : 0) +
+    (sameText(target.transmission, candidate.transmission) ? weights.transmissionMatch : 0) +
+    (sameText(vehicleFuel(target), vehicleFuel(candidate)) ? weights.fuelMatch : 0);
+  return clamp(score / Object.values(weights).reduce((total, value) => total + value, 0), 0, 1);
+};
+
+const adjustedComparablePrice = (target = {}, candidate = {}) => {
+  const weights = pakistanValuationModel.adjustmentWeights;
+  const candidatePrice = listingPrice(candidate);
+  const yearDelta = vehicleYear(target) && vehicleYear(candidate) ? vehicleYear(target) - vehicleYear(candidate) : 0;
+  const mileageDelta = vehicleMileage(candidate) && vehicleMileage(target) ? vehicleMileage(candidate) - vehicleMileage(target) : 0;
+  const engineDelta = vehicleEngineCc(target) && vehicleEngineCc(candidate) ? vehicleEngineCc(target) - vehicleEngineCc(candidate) : 0;
+  const inspectionDelta = Number(target.inspectionScore || 78) - Number(candidate.inspectionScore || 78);
+  const trustDelta = Number(target.trustScore || 70) - Number(candidate.trustScore || 70);
+  const cityDelta = marketCityPremium(target.city) - marketCityPremium(candidate.city);
+  const adjustmentPct = clamp(
+    yearDelta * weights.annualDepreciation +
+      (mileageDelta / 20000) * weights.mileagePerTwentyThousandKm +
+      (engineDelta / 500) * weights.engineCcPerFiveHundredCc +
+      inspectionDelta * weights.inspectionPerPoint +
+      trustDelta * weights.trustPerPoint +
+      cityDelta,
+    -0.45,
+    0.55
+  );
+  return {
+    price: Math.max(0, Math.round(candidatePrice * (1 + adjustmentPct))),
+    adjustmentPct,
+  };
+};
+
+const comparableRowsFor = (store = {}) => [
+  ...(store.listings || []),
+  ...pakistanValuationModel.anchorRows,
+].filter((item) => listingPrice(item) > 0);
+
+export const predictVehiclePrice = (listing = {}, store = {}) => {
+  const target = { ...listing };
+  const rows = comparableRowsFor(store)
+    .filter((item) => String(item.id) !== String(target.id || target.listingId || ''))
+    .map((item) => {
+      const similarity = valuationSimilarity(target, item);
+      const adjusted = adjustedComparablePrice(target, item);
+      return {
+        item,
+        similarity,
+        weight: Math.max(0.05, similarity ** 2),
+        adjustedPrice: adjusted.price,
+        adjustmentPct: adjusted.adjustmentPct,
+      };
+    })
+    .filter((row) => row.similarity >= 0.18)
+    .sort((a, b) => b.similarity - a.similarity);
+
+  const topRows = rows.slice(0, 12);
+  const weightedTotal = topRows.reduce((total, row) => total + row.adjustedPrice * row.weight, 0);
+  const weightSum = topRows.reduce((total, row) => total + row.weight, 0);
+  const comparableMid = weightSum ? Math.round(weightedTotal / weightSum) : 0;
+  const fallback = estimatePrice({ ...target, marketEstimate: target.marketEstimate || target.askingPrice || topRows[0]?.adjustedPrice || 0 });
+  const mid = comparableMid || fallback.mid;
+  const exactMakeModelCount = topRows.filter((row) => sameText(target.make, row.item.make) && sameText(target.model, row.item.model)).length;
+  const confidence = exactMakeModelCount >= 4 ? 'high' : topRows.length >= 5 ? 'medium' : 'low';
+  const spread = confidence === 'high' ? 0.075 : confidence === 'medium' ? 0.11 : 0.16;
+  const asking = listingPrice(target);
+  const differenceFromAsking = asking && mid ? Math.round(asking - mid) : null;
+
+  return {
+    low: Math.round(mid * (1 - spread)),
+    mid,
+    high: Math.round(mid * (1 + spread)),
+    currency: pakistanValuationModel.currency,
+    confidence,
+    model: pakistanValuationModel.name,
+    trainedStatus: pakistanValuationModel.trainedStatus,
+    comparableCount: topRows.length,
+    exactMakeModelCount,
+    trainingRows: rows.length,
+    askingPrice: asking || null,
+    differenceFromAsking,
+    verdict: differenceFromAsking === null
+      ? 'fair_market_value_estimate'
+      : differenceFromAsking > mid * 0.08
+        ? 'asking_above_predicted_market'
+        : differenceFromAsking < -mid * 0.08
+          ? 'asking_below_predicted_market'
+          : 'asking_near_predicted_market',
+    featureWeights: pakistanValuationModel.featureWeights,
+    adjustmentWeights: pakistanValuationModel.adjustmentWeights,
+    topComparables: topRows.slice(0, 5).map((row) => ({
+      id: row.item.id,
+      name: row.item.title || row.item.name || `${row.item.year || ''} ${row.item.make || ''} ${row.item.model || ''}`.trim(),
+      year: vehicleYear(row.item) || null,
+      make: row.item.make || null,
+      model: row.item.model || null,
+      variant: row.item.variant || null,
+      city: row.item.city || null,
+      price: listingPrice(row.item),
+      adjustedPrice: row.adjustedPrice,
+      similarity: Number(row.similarity.toFixed(2)),
+    })),
+    adjustments: [
+      { factor: 'model_year', label: 'Model year depreciation/appreciation', weight: pakistanValuationModel.adjustmentWeights.annualDepreciation },
+      { factor: 'mileage', label: 'Mileage penalty or premium versus comparable cars', weight: pakistanValuationModel.adjustmentWeights.mileagePerTwentyThousandKm },
+      { factor: 'city', label: 'Pakistan city demand premium', weight: marketCityPremium(target.city) },
+      { factor: 'inspection', label: 'Inspection score condition signal', weight: pakistanValuationModel.adjustmentWeights.inspectionPerPoint },
+    ],
+    warnings: [
+      ...(topRows.length < 5 ? ['Low comparable count. Treat this as guidance until more Pakistan sales data is indexed.'] : []),
+      ...(!vehicleYear(target) ? ['Model year missing reduces accuracy.'] : []),
+      ...(!vehicleMileage(target) ? ['Mileage missing reduces accuracy.'] : []),
+      ...(!target.make || !target.model ? ['Make/model missing reduces accuracy.'] : []),
+    ],
+    explanation: 'Pakistan baseline model uses comparable app listings plus reusable Pakistan market anchors, then adjusts for year, mileage, engine cc, city demand, inspection score, and seller trust. No paid API is required.',
+  };
+};
+
 export const getListingQuality = (listing = {}) => {
   const checks = [
     ['title', listing.title || listing.name || listing.make],

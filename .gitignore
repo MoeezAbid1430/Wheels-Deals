@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/chatbot/node_modules
 /.pnp
 .pnp.js
 
@@ -30,3 +31,6 @@ yarn-error.log*
 
 # local agent/tool state
 .serena/
+
+# chatbot local secrets
+/chatbot/.env
